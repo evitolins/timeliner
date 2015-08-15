@@ -1,0 +1,96 @@
+body {
+  background-color: #eee;
+  font-family : helvetica neue;
+}
+
+#viewport {
+  background-color: #fff;
+  position: relative;
+  cursor: ew-resize;
+  overflow: hidden;
+  height: 500px;
+  outline: 1px solid #aaa;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.main-title {
+  font-size: 1em;
+  font-weight: 100;
+  color: #666;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.4em
+}
+
+#data {
+  font-family : monospace;
+  color: #ddd;
+  position: absolute;
+  top: 18px;
+  right: 18px;
+}
+
+
+.timeline {
+    width : 100%;
+    height : 10px;
+    position : relative;
+    box-sizing : border-box;
+    background-color : #eee;
+    position : absolute;
+    bottom : 30px;
+}
+
+.milestone {
+  position: absolute;
+  background-color: #eee;
+  border-radius: 5px;
+  width: 4px;
+  top: 0;
+  bottom: 0;
+  margin-left: -2px;
+}
+
+.milestone-label {
+  position : absolute;
+  top : 100%;
+  font-family : monospace;
+}
+
+.milestone-info {
+    position : absolute;
+    top : 0;
+    left : 0;
+    background-color : #fff;
+    width : 100px;
+    height: 41px;
+    border: 1px solid #F00;
+    border-left: 4px solid #F00;
+    box-sizing: border-box;
+}
+
+.milestone-info-title {
+  font-weight: bold;
+  font-size: .8em;
+  position: relative;
+  top: 7px;
+  left: 4px
+}
+
+.milestone-info-date {
+  font-weight: light;
+  color: #888;
+  text-transform: uppercase;
+  font-size: .5em;
+  position: relative;
+  top: 6px;
+  left: 4px
+}
