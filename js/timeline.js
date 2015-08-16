@@ -52,41 +52,39 @@ var TimelineView = function (viewportElem, dataElem) {
     this.parElem.appendChild(this.elem);
 };
 
-TimelineView.prototype.addMilestone = function (idx, position, offsetTop) {
+TimelineView.prototype.addMilestone = function (data, offsetTop) {
     var elem = document.createElement('div');
-    elem.style.left = (position * 100) + '%';
+    elem.style.left = (data.percent * 100) + '%';
     elem.className = 'milestone';
     elem.style.top = offsetTop + 'px';
 
     var labelelem = document.createElement('div');
     labelelem.className = 'milestone-label';
-    labelelem.innerHTML = idx;
+    labelelem.innerHTML = data.id;
   
     var infoelem = document.createElement('div');
     infoelem.className = 'milestone-info';
-    //infoelem.style.top = offsetTop + 'px';
 
     var titleelem = document.createElement('div');
     titleelem.className = 'milestone-info-title';
-    titleelem.innerHTML = 'Some Event With a Long Title';
+    titleelem.innerHTML = data.title;
   
     var dateelem = document.createElement('div');
     dateelem.className = 'milestone-info-date';
-    dateelem.innerHTML = 'February 23, 1979';
+    dateelem.innerHTML = moment(data.date).format('M/D/YY');
   
     elem.appendChild(infoelem);
     elem.appendChild(labelelem);
     infoelem.appendChild(titleelem);
     infoelem.appendChild(dateelem);
-    this.elem.appendChild(elem);
     return elem;
 };
 
-TimelineView.prototype.addMilestoneMarker = function (position, offsetTop) {
+TimelineView.prototype.addMilestoneMarker = function (percentLeft, offsetTop) {
     var elem = document.createElement('div');
-    elem.style.left = (position * 100) + '%';
-    elem.className = 'milestone';
+    elem.className = 'milestoneMarker';
     elem.style.top = offsetTop + 'px';
+    elem.style.left = (percentLeft * 100) + '%';
     this.elem.appendChild(elem);
     return elem;
 };
@@ -121,9 +119,16 @@ TimelineView.prototype.renderMilestones = function (milestoneData) {
             level = -1;
         }
         offsetTop = infoH * level;
-        // this.addMilestone(milestoneData[i].id, milestoneData[i].percent, offsetTop);
-        mm = this.addMilestoneMarker(milestoneData[i].percent, offsetTop);
-        mm.appendChild(milestoneData[i].elem);
+
+        if (milestoneData[i].elem) {
+            // Show Provided Milestone Element
+            mm = this.addMilestoneMarker(milestoneData[i].percent, offsetTop);
+            mm.appendChild(milestoneData[i].elem);
+        } else {
+            // Show Custom Milestone Element
+            mm = this.addMilestone(milestoneData[i], offsetTop);
+            this.elem.appendChild(mm);
+        }
 
         this.milestonesDisplayed++;
     }
