@@ -8,13 +8,15 @@
         initMax = 1511196252000,
         viewportElem = document.getElementById('viewport_a'),
         dataElem = document.getElementById('data_a'),
+        gridElem = document.getElementById('grid_a'),
         tlc = new Timeline(),
-        tlv = new TimelineView(viewportElem, dataElem),
+        tlv = new TimelineView(viewportElem, dataElem, gridElem),
         tlb = new TimelineBind(initMin, initMax, viewportElem),
         milestonesDisplayed = 0,
 
         update = function (min, max) {
             tlv.renderMilestones(tlc.filterRange(min, max));
+            tlv.updateGridData(min, max);
             tlv.updateMilestonesData({
                 min: min,
                 max: max,

@@ -42,9 +42,10 @@ Timeline.prototype.filterRange = function (min, max) {
 ////////////////////////
 // View
 ////////////////////////
-var TimelineView = function (viewportElem, dataElem) {
+var TimelineView = function (viewportElem, dataElem, gridElem) {
     this.parElem = viewportElem || document.body;
     this.dataElem = dataElem || undefined;
+    this.gridElem = gridElem || undefined;
     this.elem = document.createElement('div');
     this.elem.className = 'timeline';
     this.milestonesDisplayed = 0;
@@ -179,7 +180,91 @@ TimelineView.prototype.updateMilestonesData = function (options) {
     this.dataElem.innerHTML = html.join('');
 };
 
+TimelineView.prototype.clearGrid = function () {
+    while (this.gridElem.firstChild) {
+        this.gridElem.removeChild(this.gridElem.firstChild);
+    }
+};
 
+TimelineView.prototype.updateGridData = function (min, max) {
+    var minDate = {
+            month : moment(parseInt(min)).format('MMM'),
+            day: moment(parseInt(min)).format('D'),
+            year: moment(parseInt(min)).format('YYYY')
+        },
+        maxDate = {
+            month : moment(parseInt(max)).format('MMM'),
+            day: moment(parseInt(max)).format('D'),
+            year: moment(parseInt(max)).format('YYYY')
+        },
+        yearsBetween = moment(max).diff(moment(min), 'years'),
+        monthsBetween = moment(max).diff(moment(min), 'months'),
+        daysBetween = moment(max).diff(moment(min), 'days'),
+        hoursBetween = moment(max).diff(moment(min), 'hours'),
+        minutesBetween = moment(max).diff(moment(min), 'minutes'),
+        data = [],
+        label,
+        ii,
+        i;
+
+    this.clearGrid();
+    if (yearsBetween >= 10){
+        for (i = 1; i <= yearsBetween; i++) {
+            epoch = moment(min).add(i, 'years').startOf('year').valueOf();
+            label = moment(min).add(i, 'years').startOf('year').format('YYYY');
+            if (label % 10 === 0) data.push({type: 'year', epoch: epoch, label: label});
+        }
+    }/* else if (yearsBetween >= 5){
+        for (i = 1; i <= yearsBetween; i++) {
+            epoch = moment(min).add(i, 'years').startOf('year').valueOf();
+            label = moment(min).add(i, 'years').startOf('year').format('YYYY');
+            if (label % 5 === 0) data.push({type: 'year', epoch: epoch, label: label});
+        }
+    }*/ else if (yearsBetween >= 1){
+        for (i = 1; i <= yearsBetween; i++) {
+            epoch = moment(min).add(i, 'years').startOf('year').valueOf();
+            label = moment(min).add(i, 'years').startOf('year').format('YYYY');
+            data.push({type: 'year', epoch: epoch, label: label});
+        }
+    } else if (monthsBetween >= 1) {
+        for (i = 1; i <= monthsBetween; i++) {
+            epoch = moment(min).add(i, 'months').startOf('month').valueOf();
+            label = moment(min).add(i, 'months').startOf('month').format('MMM');
+            data.push({type: 'month', epoch: epoch, label: label});
+        }
+    } else if (daysBetween >= 1) {
+        for (i = 1; i <= daysBetween; i++) {
+            epoch = moment(min).add(i, 'days').startOf('day').valueOf();
+            label = moment(min).add(i, 'days').startOf('day').format('M/D');
+            data.push({type: 'day', epoch: epoch, label: label});
+        }
+    } else if (hoursBetween >= 1) {
+        for (i = 1; i <= hoursBetween; i++) {
+            epoch = moment(min).add(i, 'hours').startOf('hour').valueOf();
+            label = moment(min).add(i, 'hours').startOf('hour').format('h:mm a')
+            data.push({type: 'hour', epoch: epoch, label: label});
+        }
+    } else {
+        for (i = 1; i <= minutesBetween; i++) {
+            epoch = moment(min).add(i, 'minutes').startOf('minute').valueOf();
+            minute = moment(min).add(i, 'minutes').startOf('minute').format('m')
+            label = moment(min).add(i, 'minutes').startOf('minute').format('h:mm a');
+            if (minute % 5 === 0) data.push({type: 'minute', epoch: epoch, label: label});
+        }
+    }
+
+    // Create label elements
+    for (ii=0; ii < data.length; ii++) {
+        percentLeft = (data[ii].epoch - min) / (max - min);
+        labelElem = document.createElement('div');
+        labelElem.style.position = 'absolute';
+        labelElem.style.left = (percentLeft*100)+'%';
+        labelElem.style.bottom = '0';
+        labelElem.innerHTML = data[ii].label;
+        this.gridElem.appendChild(labelElem);
+    } 
+
+};
 
 
 

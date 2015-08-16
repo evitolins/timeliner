@@ -38,6 +38,14 @@ body {
   right: 18px;
 }
 
+.viewport .grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 0.6em;
+  text-transform: uppercase;
+}
 
 .timeline {
     width : 100%;
