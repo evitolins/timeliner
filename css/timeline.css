@@ -79,11 +79,6 @@ body {
   font-size: .7em;
 }
 
-
-.milestoneMarker {
-  position: absolute;
-}
-
 .milestone {
   position: absolute;
   background-color: #eee;
