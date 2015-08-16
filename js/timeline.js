@@ -133,8 +133,10 @@ var TimelineBind = function (initMin, initMax, viewportElem) {
         posOrigX = posX,
         min = initMin,
         max = initMax,
+        zoom = 1,
         minOrig = min,
         maxOrig = max,
+        zoomOrig = zoom,
         updateCallback,
 
         listeners = {
@@ -171,6 +173,7 @@ var TimelineBind = function (initMin, initMax, viewportElem) {
 
                 min = min + (origSpan * lZoom);
                 max = max - (origSpan * rZoom);
+                zoom = (maxOrig - minOrig) / (max - min);
                 update();
             }
         },
