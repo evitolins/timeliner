@@ -13,33 +13,6 @@
         tlb = new TimelineBind(initMin, initMax, viewportElem),
         milestonesDisplayed = 0,
 
-        renderMilestones = function (filteredRange) {
-            var filtered = filteredRange || [],
-                level = -1,
-                unitW = viewportElem.clientWidth,
-                distance,
-                i;
-
-            tlv.clearMilestones();
-            milestonesDisplayed = 0;
-            for (i = filtered.length - 1; i >= 0; i--) {
-            //for (var i=0; i < filtered.length; i++) {
-                if (filtered[i + 1]) {
-                    distance = (filtered[i + 1].percent - filtered[i].percent) * unitW;
-                    //distance = (filtered[i].percent - filtered[i + 1].percent) * unitW;
-                } else {
-                    distance = undefined;
-                }
-                if (distance < 100 && distance !== undefined) {
-                    level--;
-                } else {
-                    level = -1;
-                }
-                tlv.addMilestone(filtered[i].id, filtered[i].percent, level);
-                milestonesDisplayed++;
-            }
-        },
-
         update = function (min, max) {
             tlv.renderMilestones(tlc.filterRange(min, max));
             tlv.updateMilestonesData(min, max);
