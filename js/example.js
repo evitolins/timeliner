@@ -9,7 +9,7 @@ var MIN = 1,
     var viewportElem = document.getElementById('viewport'),
         dataElem = document.getElementById('data'),
         tlc = new Timeline(),
-        tlv = new TimelineView(viewportElem),
+        tlv = new TimelineView(viewportElem, dataElem),
         tlb = new TimelineBind(viewportElem),
         milestonesDisplayed = 0,
 

@@ -42,8 +42,9 @@ Timeline.prototype.filterRange = function (min, max) {
 ////////////////////////
 // View
 ////////////////////////
-var TimelineView = function (viewportElem) {
+var TimelineView = function (viewportElem, dataElem) {
     this.parElem = viewportElem || document.body;
+    this.dataElem = dataElem || undefined;
     this.elem = document.createElement('div');
     this.elem.className = 'timeline';
     this.milestonesDisplayed = 0;
@@ -95,6 +96,7 @@ TimelineView.prototype.renderMilestones = function (milestoneData) {
         i;
 
     this.clearMilestones();
+    this.milestonesDisplayed = 0;
     for (i = milestoneData.length - 1; i >= 0; i--) {
         if (milestoneData[i + 1]) {
             distance = (milestoneData[i + 1].percent - milestoneData[i].percent) * unitW;
@@ -113,7 +115,7 @@ TimelineView.prototype.renderMilestones = function (milestoneData) {
 
 TimelineView.prototype.updateMilestonesData = function () {
     var data = MIN.toFixed(2) + ":" + MAX.toFixed(2) + " (" + this.milestonesDisplayed + " milestones)";
-    dataElem.innerHTML = data;
+    this.dataElem.innerHTML = data;
 };
 
 
