@@ -160,21 +160,21 @@ TimelineView.prototype.updateMilestonesData = function (options) {
                 day: moment(parseInt(max)).format('D'),
                 year: moment(parseInt(max)).format('YYYY')
             };
-            html.push("<table><tr><td>");
-            html.push("    <div class='date_ui'>");
-            html.push("        <div class='date_month'>"+minDate.month+"</div>");
-            html.push("        <div class='date_day'>"+minDate.day+"</div>");
-            html.push("        <div class='date_year'>"+minDate.year+"</div>");
-            html.push("    </div>");
-            html.push("</td>");
-            html.push("<td>");
-            html.push("    <div class='date_ui'>");
-            html.push("        <div class='date_month'>"+maxDate.month+"</div>");
-            html.push("        <div class='date_day'>"+maxDate.day+"</div>");
-            html.push("        <div class='date_year'>"+maxDate.year+"</div>");
-            html.push("    </div>");
-            html.push("</td></tr></table>");
-
+        html.push("<table><tr><td>");
+        html.push("    <div class='date_ui'>");
+        html.push("        <div class='date_month'>"+minDate.month+"</div>");
+        html.push("        <div class='date_day'>"+minDate.day+"</div>");
+        html.push("        <div class='date_year'>"+minDate.year+"</div>");
+        html.push("    </div>");
+        html.push("</td>");
+        html.push("<td style='color:#000;'>&#10095;</td>")
+        html.push("<td>");
+        html.push("    <div class='date_ui'>");
+        html.push("        <div class='date_month'>"+maxDate.month+"</div>");
+        html.push("        <div class='date_day'>"+maxDate.day+"</div>");
+        html.push("        <div class='date_year'>"+maxDate.year+"</div>");
+        html.push("    </div>");
+        html.push("</td></tr></table>");
     }
     this.dataElem.innerHTML = html.join('');
 };
