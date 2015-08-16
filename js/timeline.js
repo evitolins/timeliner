@@ -52,11 +52,11 @@ var TimelineView = function (viewportElem, dataElem) {
     this.parElem.appendChild(this.elem);
 };
 
-TimelineView.prototype.addMilestone = function (idx, position, level) {
+TimelineView.prototype.addMilestone = function (idx, position, offsetTop) {
     var elem = document.createElement('div');
     elem.style.left = (position * 100) + '%';
     elem.className = 'milestone';
-    elem.style.top = (40 * level) + 'px';
+    elem.style.top = offsetTop + 'px';
 
     var labelelem = document.createElement('div');
     labelelem.className = 'milestone-label';
@@ -64,11 +64,11 @@ TimelineView.prototype.addMilestone = function (idx, position, level) {
   
     var infoelem = document.createElement('div');
     infoelem.className = 'milestone-info';
-    //infoelem.style.top = (40 * level) + 'px';
+    //infoelem.style.top = offsetTop + 'px';
 
     var titleelem = document.createElement('div');
     titleelem.className = 'milestone-info-title';
-    titleelem.innerHTML = 'Some Event...';
+    titleelem.innerHTML = 'Some Event With a Long Title';
   
     var dateelem = document.createElement('div');
     dateelem.className = 'milestone-info-date';
@@ -82,6 +82,15 @@ TimelineView.prototype.addMilestone = function (idx, position, level) {
     return elem;
 };
 
+TimelineView.prototype.addMilestoneMarker = function (position, offsetTop) {
+    var elem = document.createElement('div');
+    elem.style.left = (position * 100) + '%';
+    elem.className = 'milestone';
+    elem.style.top = offsetTop + 'px';
+    this.elem.appendChild(elem);
+    return elem;
+};
+
 TimelineView.prototype.clearMilestones = function () {
     while (this.elem.firstChild) {
         this.elem.removeChild(this.elem.firstChild);
@@ -91,8 +100,11 @@ TimelineView.prototype.clearMilestones = function () {
 TimelineView.prototype.renderMilestones = function (milestoneData) {
     var level = -1,
         infoW = 100,
+        infoH = 40,
         unitW = this.parElem.clientWidth,
         distance,
+        offsetTop,
+        mm,
         i;
 
     this.clearMilestones();
@@ -108,7 +120,11 @@ TimelineView.prototype.renderMilestones = function (milestoneData) {
         } else {
             level = -1;
         }
-        this.addMilestone(milestoneData[i].id, milestoneData[i].percent, level);
+        offsetTop = infoH * level;
+        // this.addMilestone(milestoneData[i].id, milestoneData[i].percent, offsetTop);
+        mm = this.addMilestoneMarker(milestoneData[i].percent, offsetTop);
+        mm.appendChild(milestoneData[i].elem);
+
         this.milestonesDisplayed++;
     }
 };
