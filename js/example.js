@@ -32,7 +32,7 @@
         elem.style.boxSizing = 'border-box';
         elem.innerHTML = 'This is element ' + label;
         return elem;
-    }
+    };
 
     ////////////////////////
     // Init
