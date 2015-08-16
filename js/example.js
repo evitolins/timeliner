@@ -1,4 +1,3 @@
-
 ;(function (window, document, Timeline, TimelineView, TimelineBind) { 'use strict';
 
     ////////////////////////

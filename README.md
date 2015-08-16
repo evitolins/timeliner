@@ -12,18 +12,15 @@ timeline UI.
 Dependencies
 -------------------------------
 
-**moment.js** is required for the Timeliner View, to display human-readable date & time data.
+**moment.js** is required for the Timeliner View for human-readable date & time data.
 
 
 Installation
 -------------------------------
-**Bower**
-: To maintain dependency, you may want to use Bower instead
-
-1) Install `timeliner` and it's dependencies
+1) Install dependencies
 
 ```bash
-bower install timeliner
+bower install
 ```
 
 2) Source required scripts within your app
@@ -32,7 +29,7 @@ bower install timeliner
 <link rel="stylesheet" type="text/css" href="css/timeline.css">
 ...
 <script src='bower_components/moment/min/moment.min.js'></script>
-<script src='bower_components/timeliner/js/timeline.js'></script>
+<script src='js/timeline.js'></script>
 ```
 
 
@@ -74,5 +71,5 @@ var filtered = tlc.filterRange(1449496252000, 1499996252000);
 //     {date : 1499996252000, percent : 1}
 // ];
 ```
-> This method also attaches position percentage data to assist with UI display
+> Notice: This method also attaches position percentage data to assist with UI display
 
