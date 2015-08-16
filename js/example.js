@@ -6,8 +6,8 @@
     ////////////////////////
     var initMin = 1,
         initMax = 10,
-        viewportElem = document.getElementById('viewport'),
-        dataElem = document.getElementById('data'),
+        viewportElem = document.getElementById('viewport_a'),
+        dataElem = document.getElementById('data_a'),
         tlc = new Timeline(),
         tlv = new TimelineView(viewportElem, dataElem),
         tlb = new TimelineBind(initMin, initMax, viewportElem),
@@ -15,7 +15,12 @@
 
         update = function (min, max) {
             tlv.renderMilestones(tlc.filterRange(min, max));
-            tlv.updateMilestonesData(min, max);
+            tlv.updateMilestonesData({
+                min: min,
+                max: max,
+                type: 'fancy',
+                format: 'M/D/YY LT'
+            });
         };
 
 

@@ -3,7 +3,7 @@ body {
   font-family : helvetica neue;
 }
 
-#viewport {
+.viewport {
   background-color: #fff;
   position: relative;
   cursor: ew-resize;
@@ -30,7 +30,7 @@ body {
   letter-spacing: 0.4em
 }
 
-#data {
+.viewport .data {
   font-family : monospace;
   color: #ddd;
   position: absolute;
@@ -47,6 +47,41 @@ body {
     background-color : #eee;
     position : absolute;
     bottom : 30px;
+}
+
+.date_ui {
+    width: 7em;
+    height: 7em;
+    border: 1px solid #F00;
+    color: #000;
+    text-align: center;
+    font-family: helvetica neue;
+    border-radius: 4px;
+    font-size: 10px;
+    margin: 2px;
+}
+
+.date_month {
+  background: red;
+  padding: 3px;
+  color: #fff;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+.date_day {
+  font-size: 3.8em;
+  font-weight: bold;
+  line-height: 1.1em;
+}
+
+.date_year {
+  font-size: .7em;
+}
+
+
+.milestoneMarker {
+  position: absolute;
 }
 
 .milestone {
@@ -82,7 +117,10 @@ body {
   font-size: .8em;
   position: relative;
   top: 7px;
-  left: 4px
+  left: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .milestone-info-date {

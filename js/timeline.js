@@ -129,9 +129,48 @@ TimelineView.prototype.renderMilestones = function (milestoneData) {
     }
 };
 
-TimelineView.prototype.updateMilestonesData = function (min, max) {
-    var data = min.toFixed(2) + ":" + max.toFixed(2) + " (" + this.milestonesDisplayed + " milestones)";
-    this.dataElem.innerHTML = data;
+/**
+ * Output timeline range data, with various options
+ * @param  {Object} options {min, max, format, type}
+ * @return {undefined}         [description]
+ */
+TimelineView.prototype.updateMilestonesData = function (options) {
+    var min = options.min,
+        max = options.max,
+        format = options.format || 'MM/DD/YYYY',
+        html = [];
+
+    if (!options.type || options.type === 'text') {
+        html.push(moment(parseInt(min)).format(format) + ":" + moment(parseInt(max)).format(format) + " (" + this.milestonesDisplayed + " milestones)");
+    }
+    if (options.type === 'fancy') {
+        var minDate = {
+                month : moment(parseInt(min)).format('MMM'),
+                day: moment(parseInt(min)).format('D'),
+                year: moment(parseInt(min)).format('YYYY')
+            },
+            maxDate = {
+                month : moment(parseInt(max)).format('MMM'),
+                day: moment(parseInt(max)).format('D'),
+                year: moment(parseInt(max)).format('YYYY')
+            };
+            html.push("<table><tr><td>");
+            html.push("    <div class='date_ui'>");
+            html.push("        <div class='date_month'>"+minDate.month+"</div>");
+            html.push("        <div class='date_day'>"+minDate.day+"</div>");
+            html.push("        <div class='date_year'>"+minDate.year+"</div>");
+            html.push("    </div>");
+            html.push("</td>");
+            html.push("<td>");
+            html.push("    <div class='date_ui'>");
+            html.push("        <div class='date_month'>"+maxDate.month+"</div>");
+            html.push("        <div class='date_day'>"+maxDate.day+"</div>");
+            html.push("        <div class='date_year'>"+maxDate.year+"</div>");
+            html.push("    </div>");
+            html.push("</td></tr></table>");
+
+    }
+    this.dataElem.innerHTML = html.join('');
 };
 
 
