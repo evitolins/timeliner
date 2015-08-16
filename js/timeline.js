@@ -128,11 +128,11 @@ TimelineView.prototype.updateMilestonesData = function () {
 ////////////////////////
 var TimelineBind = function (viewportElem) {
     var isDragging = false,
-        dragStartX = 0,
+        dragOrigX = 0,
         posX = 0,
-        posStartX = 0,
-        minStart = MIN,
-        maxStart = MAX,
+        posOrigX = posX,
+        minOrig = MIN,
+        maxOrig = MAX,
         updateCallback,
 
         listeners = {
@@ -144,16 +144,16 @@ var TimelineBind = function (viewportElem) {
             },
             mousedown : function (e) {
                 isDragging = true;
-                dragStartX = e.clientX;
-                posStartX = posX;
+                dragOrigX = e.clientX;
+                posOrigX = posX;
             },
             mousemove : function (e) {
                 var x = e.clientX,
                     unitW = this.clientWidth / (MAX - MIN);
                 if (isDragging) {
-                    posX = x - dragStartX + posStartX;
-                    MIN = minStart - (posX / unitW);
-                    MAX = maxStart - (posX / unitW);
+                    posX = x - dragOrigX + posOrigX;
+                    MIN = minOrig - (posX / unitW);
+                    MAX = maxOrig - (posX / unitW);
                     update();
                 }
             },
