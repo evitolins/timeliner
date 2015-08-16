@@ -113,8 +113,8 @@ TimelineView.prototype.renderMilestones = function (milestoneData) {
     }
 };
 
-TimelineView.prototype.updateMilestonesData = function () {
-    var data = MIN.toFixed(2) + ":" + MAX.toFixed(2) + " (" + this.milestonesDisplayed + " milestones)";
+TimelineView.prototype.updateMilestonesData = function (min, max) {
+    var data = min.toFixed(2) + ":" + max.toFixed(2) + " (" + this.milestonesDisplayed + " milestones)";
     this.dataElem.innerHTML = data;
 };
 
@@ -126,13 +126,15 @@ TimelineView.prototype.updateMilestonesData = function () {
 ////////////////////////
 // Bind
 ////////////////////////
-var TimelineBind = function (viewportElem) {
+var TimelineBind = function (initMin, initMax, viewportElem) {
     var isDragging = false,
         dragOrigX = 0,
         posX = 0,
         posOrigX = posX,
-        minOrig = MIN,
-        maxOrig = MAX,
+        min = initMin,
+        max = initMax,
+        minOrig = min,
+        maxOrig = max,
         updateCallback,
 
         listeners = {
@@ -149,11 +151,11 @@ var TimelineBind = function (viewportElem) {
             },
             mousemove : function (e) {
                 var x = e.clientX,
-                    unitW = this.clientWidth / (MAX - MIN);
+                    unitW = this.clientWidth / (max - min);
                 if (isDragging) {
                     posX = x - dragOrigX + posOrigX;
-                    MIN = minOrig - (posX / unitW);
-                    MAX = maxOrig - (posX / unitW);
+                    min = minOrig - (posX / unitW);
+                    max = maxOrig - (posX / unitW);
                     update();
                 }
             },
@@ -163,19 +165,19 @@ var TimelineBind = function (viewportElem) {
                     width = this.clientWidth,
                     percentX = x / width,
                     increment = 0.1,
-                    origSpan = MAX - MIN,
+                    origSpan = max - min,
                     lZoom = increment * dir * percentX,
                     rZoom = increment * dir * (1 - percentX);
 
-                MIN = MIN + (origSpan * lZoom);
-                MAX = MAX - (origSpan * rZoom);
+                min = min + (origSpan * lZoom);
+                max = max - (origSpan * rZoom);
                 update();
             }
         },
 
         update = function () {
             if (typeof updateCallback === 'function') {
-                updateCallback();
+                updateCallback.apply(this, [min, max]);
             }
         },
 

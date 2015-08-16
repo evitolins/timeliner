@@ -1,20 +1,20 @@
-var MIN = 1,
-    MAX = 10;
 
 ;(function (window, document, Timeline, TimelineView, TimelineBind) { 'use strict';
 
     ////////////////////////
     // Timeline Example
     ////////////////////////
-    var viewportElem = document.getElementById('viewport'),
+    var initMin = 1,
+        initMax = 10,
+        viewportElem = document.getElementById('viewport'),
         dataElem = document.getElementById('data'),
         tlc = new Timeline(),
         tlv = new TimelineView(viewportElem, dataElem),
-        tlb = new TimelineBind(viewportElem),
+        tlb = new TimelineBind(initMin, initMax, viewportElem),
         milestonesDisplayed = 0,
 
-        renderMilestones = function () {
-            var filtered = tlc.filterRange(MIN, MAX),
+        renderMilestones = function (filteredRange) {
+            var filtered = filteredRange || [],
                 level = -1,
                 unitW = viewportElem.clientWidth,
                 distance,
@@ -40,14 +40,9 @@ var MIN = 1,
             }
         },
 
-        updateMilestonesData = function () {
-            var data = MIN.toFixed(2) + ":" + MAX.toFixed(2) + " (" + milestonesDisplayed + " milestones)";
-            dataElem.innerHTML = data;
-        },
-
-        update = function () {
-            tlv.renderMilestones(tlc.filterRange(MIN, MAX));
-            tlv.updateMilestonesData();
+        update = function (min, max) {
+            tlv.renderMilestones(tlc.filterRange(min, max));
+            tlv.updateMilestonesData(min, max);
         };
 
 
@@ -69,5 +64,5 @@ var MIN = 1,
         {id: 9, date : 21},
         {id: 10, date : 24}
     ]);
-    update();
+    update(initMin, initMax);
 })(window, document, Timeline, TimelineView, TimelineBind);
