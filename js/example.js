@@ -12,7 +12,6 @@
         tlc = new Timeline(),
         tlv = new TimelineView(viewportElem, dataElem, gridElem),
         tlb = new TimelineBind(initMin, initMax, viewportElem),
-        milestonesDisplayed = 0,
 
         update = function (min, max) {
             tlv.renderMilestones(tlc.filterRange(min, max));
@@ -23,18 +22,16 @@
                 type: 'fancy',
                 format: 'M/D/YY LT'
             });
+        },
+        createFakeElem = function (label) {
+            var elem = document.createElement('div');
+            elem.style.width = '100px';
+            elem.style.height = '40px';
+            elem.style.border = '1px solid black';
+            elem.style.boxSizing = 'border-box';
+            elem.innerHTML = 'This is element ' + label;
+            return elem;
         };
-
-
-    var createFakeElem = function (label) {
-        var elem = document.createElement('div');
-        elem.style.width = '100px';
-        elem.style.height = '40px';
-        elem.style.border = '1px solid black';
-        elem.style.boxSizing = 'border-box';
-        elem.innerHTML = 'This is element ' + label;
-        return elem;
-    };
 
     ////////////////////////
     // Init
