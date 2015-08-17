@@ -40,11 +40,29 @@ body {
 
 .viewport .grid {
   position: absolute;
+  height: 30px;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  pointer-events: none;
   font-size: 0.6em;
   text-transform: uppercase;
+
+}
+
+.viewport .grid-label {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  font-size: 0.6em;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.2em;
+  border-left: 1px dashed #E9E9E9;
+  padding: 4px;
 }
 
 .timeline {
@@ -80,11 +98,11 @@ body {
 .date_day {
   font-size: 3.8em;
   font-weight: bold;
-  line-height: 1.1em;
+  line-height: 1em;
 }
 
 .date_year {
-  font-size: .7em;
+  font-size: .9em;
 }
 
 .milestone {

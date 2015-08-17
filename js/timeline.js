@@ -260,6 +260,7 @@ TimelineView.prototype.updateGridData = function (min, max) {
         labelElem.style.position = 'absolute';
         labelElem.style.left = (percentLeft*100)+'%';
         labelElem.style.bottom = '0';
+        labelElem.className = 'grid-label';
         labelElem.innerHTML = data[ii].label;
         this.gridElem.appendChild(labelElem);
     } 
