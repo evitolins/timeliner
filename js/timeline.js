@@ -1,5 +1,4 @@
-// http://momentjs.com/
-// http://refreshless.com/nouislider/examples/#section-dates
+(function () { 'use strict';
 
 
 ////////////////////////
@@ -203,7 +202,10 @@ TimelineView.prototype.updateGridData = function (min, max) {
         hoursBetween = moment(max).diff(moment(min), 'hours'),
         minutesBetween = moment(max).diff(moment(min), 'minutes'),
         data = [],
+        epoch,
+        percentLeft,
         label,
+        labelElem,
         ii,
         i;
 
@@ -280,6 +282,8 @@ var TimelineBind = function (initMin, initMax, viewportElem) {
         max = initMax,
         minOrig = min,
         maxOrig = max,
+        minStart,
+        maxStart,
         updateCallback,
 
         listeners = {
@@ -353,3 +357,16 @@ var TimelineBind = function (initMin, initMax, viewportElem) {
         unbind : unbind
     };
 };
+
+
+window.Timeline = Timeline;
+window.TimelineView = TimelineView;
+window.TimelineBind = TimelineBind;
+
+// // export as AMD module / Node module / browser variable
+// if (typeof define === 'function' && define.amd) define(Timeline);
+// else if (typeof module !== 'undefined') module.exports = Timeline;
+// else window.Timeline = Timeline;
+
+
+})();

@@ -1,4 +1,4 @@
-;(function (window, document, Timeline, TimelineView, TimelineBind) { 'use strict';
+(function (window, document, Timeline, TimelineView, TimelineBind) { 'use strict';
 
     ////////////////////////
     // Timeline Example
