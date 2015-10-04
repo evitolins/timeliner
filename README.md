@@ -73,3 +73,14 @@ var filtered = tlc.filterRange(1449496252000, 1499996252000);
 ```
 > Notice: This method also attaches position percentage data to assist with UI display
 
+
+
+Reference
+-------------------------------
+
+
+
+Inspiration
+-------------------------------
+http://visjs.org/timeline_examples.html
+
